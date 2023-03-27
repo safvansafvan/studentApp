@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
        primarySwatch: Colors.indigo,
       ),
-      home:const MainScreen(),
+      home:const  MainScreen(),
     );
   }
 }
