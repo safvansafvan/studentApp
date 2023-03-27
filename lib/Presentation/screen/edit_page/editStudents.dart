@@ -1,6 +1,7 @@
+
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/DB/functions/db_functions.dart';
-import 'package:flutter_application_1/DB/model/model_dart.dart';
 
 class EditStudent extends StatefulWidget {
   final String name;
@@ -131,17 +132,6 @@ class _EditStudentState extends State<EditStudent> {
       ),
     );
   }
-
-  // Future<void> EditSave() async {
-  //   final student = StudentModel(
-  //     name: nameOfStudent.text,
-  //     age: ageOfStudent.text,
-  //     rollnumber: rollNoOfStudent.text,
-  //     class_: classOfStudent.text,
-  //   );
-
-  //   editList(widget.index, student);
-  // }
 
   editDialouge() {
     ScaffoldMessenger.of(context).showSnackBar(

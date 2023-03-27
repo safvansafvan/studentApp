@@ -1,7 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/DB/functions/db_functions.dart';
-import 'package:flutter_application_1/screen/fullList.dart';
-import 'package:flutter_application_1/screen/mainScreen.dart';
+import 'package:flutter_application_1/Presentation/screen/student_information/fullList.dart';
+
+import '../../DB/functions/db_functions.dart';
 
 class SearchWidget extends SearchDelegate {
   @override
@@ -11,7 +13,7 @@ class SearchWidget extends SearchDelegate {
         onPressed: () {
           query = '';
         },
-        icon: Icon(Icons.clear),
+        icon:const Icon(Icons.clear),
       )
     ];
   }
@@ -22,7 +24,7 @@ class SearchWidget extends SearchDelegate {
       onPressed: () {
         close(context, null);
       },
-      icon: Icon(Icons.arrow_back),
+      icon:const Icon(Icons.arrow_back),
     );
   }
 
@@ -43,7 +45,7 @@ class SearchWidget extends SearchDelegate {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: ((context) {
-                          return fullDetails(
+                          return FullDetails(
                             name: data.name,
                             age: data.age,
                             class_: data.class_,
@@ -54,7 +56,7 @@ class SearchWidget extends SearchDelegate {
                     );
                   },
                   title: Text(data.name),
-                  leading: CircleAvatar(
+                  leading:const CircleAvatar(
                     backgroundImage: AssetImage('Assets/images/logo.jpg'),
                   ),
                 ),
@@ -62,7 +64,7 @@ class SearchWidget extends SearchDelegate {
               ],
             );
           } else {
-            return Text("error");
+            return const Text("error");
           }
         },
         itemCount: studentlist.length,
@@ -88,7 +90,7 @@ class SearchWidget extends SearchDelegate {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: ((context) {
-                          return fullDetails(
+                          return FullDetails(
                             name: data.name,
                             age: data.age,
                             class_: data.class_,

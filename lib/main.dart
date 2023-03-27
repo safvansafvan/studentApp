@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/DB/model/model_dart.dart';
-import 'package:flutter_application_1/screen/addStudent.dart';
-import 'package:flutter_application_1/screen/mainScreen.dart';
+import 'package:flutter_application_1/Presentation/screen/home_screen/mainScreen.dart';
+import 'package:flutter_application_1/controller/core/colors.dart';
 import 'package:hive_flutter/adapters.dart';
+
+import 'Presentation/DB/model/model_dart.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +12,7 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(StudentModelAdapter().typeId)) {
     Hive.registerAdapter(StudentModelAdapter());
   }
-  runApp(MyApp());
+  runApp(const  MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,8 +22,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
-      home: mainScreen(),
+      theme: ThemeData(
+       primarySwatch: Colors.indigo,
+      ),
+      home:const MainScreen(),
     );
   }
 }

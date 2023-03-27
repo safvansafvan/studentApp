@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+// ignore_for_file: file_names
 
-class fullDetails extends StatelessWidget {
+import 'package:flutter/material.dart';
+
+class FullDetails extends StatelessWidget {
   final String name;
   final String class_;
 
@@ -10,7 +10,7 @@ class fullDetails extends StatelessWidget {
 
   final String rollno;
 
-  const fullDetails({
+  const FullDetails({
     super.key,
     required this.name,
     required this.age,
@@ -37,8 +37,8 @@ class fullDetails extends StatelessWidget {
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
+                  children: const[
+                     SizedBox(
                       height: 200,
                       child: CircleAvatar(
                         backgroundColor: Colors.black,
