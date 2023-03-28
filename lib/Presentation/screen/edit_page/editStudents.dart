@@ -1,7 +1,11 @@
 
 // ignore_for_file: file_names
 
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Presentation/widgets/appbar.dart';
 
 class EditStudent extends StatefulWidget {
   final String name;
@@ -14,6 +18,9 @@ class EditStudent extends StatefulWidget {
 
   final int index;
 
+  final String photo;
+
+
   const EditStudent({
     super.key,
     required this.name,
@@ -21,6 +28,7 @@ class EditStudent extends StatefulWidget {
     required this.age,
     required this.rollno,
     required this.index,
+    required this.photo
   });
 
   @override
@@ -28,6 +36,8 @@ class EditStudent extends StatefulWidget {
 }
 
 class _EditStudentState extends State<EditStudent> {
+
+
   TextEditingController nameOfStudent = TextEditingController();
 
   TextEditingController classOfStudent = TextEditingController();
@@ -35,6 +45,7 @@ class _EditStudentState extends State<EditStudent> {
   TextEditingController ageOfStudent = TextEditingController();
 
   TextEditingController rollNoOfStudent = TextEditingController();
+
 
   @override
   void initState() {
@@ -47,87 +58,87 @@ class _EditStudentState extends State<EditStudent> {
     ageOfStudent = TextEditingController(text: widget.age);
 
     rollNoOfStudent = TextEditingController(text: widget.rollno);
+
+  
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit Student'),
-        backgroundColor: Colors.grey,
-      ),
       body: SafeArea(
-        child: SizedBox(
-          width: 350,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    controller: nameOfStudent,
-                    decoration: const InputDecoration(
-                      hintText: 'Name',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: classOfStudent,
-                    decoration: const InputDecoration(
-                      hintText: 'class',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    maxLength: 3,
-                    controller: ageOfStudent,
-                    decoration: const InputDecoration(
-                      hintText: 'Age',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    maxLength: 3,
-                    controller: rollNoOfStudent,
-                    decoration: const InputDecoration(
-                      hintText: 'roll no',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: SizedBox(
-                    height: 40,
-                    child: ElevatedButton.icon(
-                      style: const ButtonStyle(),
-                      onPressed: () {
-                        // EditSave();
-                        editDialouge();
-
-                        Navigator.of(context).pop();
-                      },
-                      label: const Text('Confirm edit'),
-                      icon: const Icon(
-                        Icons.check,
+        child: ListView(
+          children: [
+            const AppBarWidget(titles: 'Edit Details', leading: Icons.arrow_back, trailing: Icons.error),
+            const SizedBox(height: 10,),
+             CircleAvatar(
+                      radius: 80,
+                      backgroundImage: FileImage(
+                        File(widget.photo),
+                      )),
+            SizedBox(
+              width: 350,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      controller: nameOfStudent,
+                      decoration: const InputDecoration(
+                        hintText: 'Name',
+                        border: OutlineInputBorder(),
                       ),
                     ),
-                  ),
+                   const SizedBox(height: 15,),
+                    TextFormField(
+                      controller: classOfStudent,
+                      decoration: const InputDecoration(
+                        hintText: 'class',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 15,),
+                    TextField(
+                      maxLength: 3,
+                      keyboardType:TextInputType.number,
+                      controller: ageOfStudent,
+                      decoration: const InputDecoration(
+                        hintText: 'Age',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 15,),
+                    TextFormField(
+                      maxLength: 3,
+                        keyboardType:TextInputType.number,
+                      controller: rollNoOfStudent,
+                      decoration: const InputDecoration(
+                        hintText: 'roll no',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 15,),
+                    SizedBox(
+                      height: 40,
+                      child: ElevatedButton.icon(
+                        style: const ButtonStyle(),
+                        onPressed: () {
+                          // EditSave();
+                          editDialouge();
+              
+                          Navigator.of(context).pop();
+                        },
+                        label: const Text('Confirm edit'),
+                        icon: const Icon(
+                          Icons.check,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

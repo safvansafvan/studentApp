@@ -50,6 +50,7 @@ class SearchWidget extends SearchDelegate {
                             age: data.age,
                             class_: data.class_,
                             rollno: data.rollnumber,
+                            photo: data.photo,
                           );
                         }),
                       ),
@@ -95,6 +96,7 @@ class SearchWidget extends SearchDelegate {
                             age: data.age,
                             class_: data.class_,
                             rollno: data.rollnumber,
+                            photo: data.photo,
                           );
                         }),
                       ),

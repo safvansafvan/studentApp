@@ -9,13 +9,9 @@ ValueNotifier<List<StudentModel>> studentList = ValueNotifier([]);
 
 Future<void> addStudent(StudentModel value) async {
   final studentsDB = await Hive.openBox<StudentModel>('students_db');
-
-  final _id = await studentsDB.add(value);
-
-  value.id = _id;
-
+  final id = await studentsDB.add(value);
+  value.id = id;
   studentList.value.add(value);
-
   // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
   studentList.notifyListeners();
   getAllStudents();
@@ -23,20 +19,15 @@ Future<void> addStudent(StudentModel value) async {
 
 Future<void> getAllStudents() async {
   final studentsDB = await Hive.openBox<StudentModel>('students_db');
-
   studentList.value.clear();
-
   studentList.value.addAll(studentsDB.values);
-
   // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
   studentList.notifyListeners();
 }
 
 Future<void> deleteList(int index) async {
   final studentsDB = await Hive.openBox<StudentModel>('students_db');
-
   await studentsDB.deleteAt(index);
-
   getAllStudents();
 }
 

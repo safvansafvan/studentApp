@@ -13,7 +13,7 @@ class AppBarWidget extends StatelessWidget {
       leading:IconButton(onPressed: (){
         Navigator.pop(context);
       }, icon:Icon( leading),),
-      title: Text(titles),
+      title: Text(titles,style:const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
       trailing: IconButton(onPressed: (){}, icon: Icon(trailing)),
 
     );
