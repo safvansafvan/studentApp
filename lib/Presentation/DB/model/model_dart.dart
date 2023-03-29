@@ -16,10 +16,16 @@ class StudentModel {
   final String class_;
 
   @HiveField(4)
-  int? id;
+  String? id;
 
   @HiveField(5)
   final String photo;
 
-  StudentModel({required this.name, required this.age, required this.rollnumber, required this.class_, required this.photo, this.id});
+  StudentModel(
+      {required this.name,
+      required this.age,
+      required this.rollnumber,
+      required this.class_,
+      required this.photo,
+      this.id});
 }
