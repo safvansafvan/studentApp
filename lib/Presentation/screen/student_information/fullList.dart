@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:io';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Presentation/widgets/appbar.dart';
@@ -35,7 +36,6 @@ class FullDetails extends StatelessWidget {
             height: 50,
           ),
           CircleAvatar(
-            backgroundColor: Colors.grey,
             radius: 82,
             child: CircleAvatar(
               backgroundImage: FileImage(File(photo)),
@@ -49,8 +49,8 @@ class FullDetails extends StatelessWidget {
                 children: [
                   Text(
                     'NAME :  $name'.toUpperCase(),
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 20,

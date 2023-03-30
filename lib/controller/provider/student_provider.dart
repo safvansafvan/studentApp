@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -17,10 +16,12 @@ class StudentProvider with ChangeNotifier {
 
   //edit
 
-  TextEditingController nameOfStudent = TextEditingController();
-  TextEditingController classOfStudent = TextEditingController();
-  TextEditingController ageOfStudent = TextEditingController();
-  TextEditingController rollNoOfStudent = TextEditingController();
+  TextEditingController editname = TextEditingController();
+  TextEditingController editage = TextEditingController();
+  TextEditingController editclass = TextEditingController();
+  TextEditingController editrollrum = TextEditingController();
+
+  final editFormkey = GlobalKey<FormState>();
 
   List<StudentModel> studentList = [];
 
@@ -74,6 +75,22 @@ class StudentProvider with ChangeNotifier {
     final studentDB = await Hive.openBox<StudentModel>('students_db');
     studentDB.deleteAt(index);
     getAllStudents();
+    notifyListeners();
+  }
+
+  //search
+
+  Future<void> searchResu(String text) async {
+    List<StudentModel> result = [];
+    if (text.isEmpty) {
+      result = studentList;
+    } else {
+      result = studentList
+          .where((element) =>
+              element.name.toLowerCase().contains(text.toLowerCase()))
+          .toList();
+    }
+    foundeduser = result;
     notifyListeners();
   }
 }

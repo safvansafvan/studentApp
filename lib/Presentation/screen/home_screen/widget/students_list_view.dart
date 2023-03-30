@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Presentation/screen/edit_page/editStudents.dart';
 import 'package:flutter_application_1/Presentation/screen/student_information/fullList.dart';
+import 'package:flutter_application_1/Presentation/widgets/snack_bar.dart';
 import 'package:flutter_application_1/controller/core/colors.dart';
 import 'package:flutter_application_1/controller/provider/student_provider.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class StudentListView extends StatelessWidget {
       builder: (context, value, child) {
         if (value.foundeduser.isEmpty) {
           return Padding(
-            padding: const EdgeInsets.only(top: 250),
+            padding: const EdgeInsets.only(top: 350),
             child: Center(
                 child: Text(
               'No Students Found',
@@ -76,37 +77,7 @@ class StudentListView extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-                            // deleteList(index);
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text(
-                                  'Alert!!',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                content: const Text(
-                                    'Are You Sure Delete This Student'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      // deleteList(index);
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text(
-                                      'Yes',
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('No'),
-                                  ),
-                                ],
-                              ),
-                            );
+                            deleteButtonTap(context, value, index);
                           },
                           icon: const Icon(Icons.delete),
                           color: Colors.red,
@@ -120,6 +91,40 @@ class StudentListView extends StatelessWidget {
               itemCount: value.foundeduser.length);
         }
       },
+    );
+  }
+
+  void deleteButtonTap(context, value, index) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          'Alert!!',
+          style: TextStyle(
+            color: Colors.red,
+          ),
+        ),
+        content: const Text('Are You Sure Delete This Student'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              value.deletest(index);
+              snackBarWidget(ctx: context, title: 'Deleted', clr: Colors.red);
+              Navigator.pop(context);
+              FocusScope.of(context).unfocus();
+            },
+            child: const Text(
+              'Yes',
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('No'),
+          ),
+        ],
+      ),
     );
   }
 }

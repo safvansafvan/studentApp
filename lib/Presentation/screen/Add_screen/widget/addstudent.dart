@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Presentation/DB/model/model_dart.dart';
 import 'package:flutter_application_1/Presentation/screen/Add_screen/widget/textformfield.dart';
+import 'package:flutter_application_1/Presentation/widgets/appbar.dart';
+import 'package:flutter_application_1/Presentation/widgets/snack_bar.dart';
 import 'package:flutter_application_1/controller/provider/student_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +22,11 @@ class AddStudent extends StatelessWidget {
         key: value.formkey,
         child: Column(
           children: [
-            // const SizedBox(height: 70),
+            const AppBarWidget(
+                titles: 'Add Student Details',
+                leading: Icons.arrow_back,
+                trailing: Icons.error),
+            const SizedBox(height: 70),
             value.fileimage == null
                 ? const CircleAvatar(
                     radius: 80,
@@ -38,7 +44,6 @@ class AddStudent extends StatelessWidget {
                 },
                 icon: const Icon(Icons.add),
                 label: const Text('Add Profile')),
-
             Textformwidget(ctrl: value.nameController, hinttext: 'Name'),
             Textformwidget(ctrl: value.ageController, hinttext: 'Age'),
             Textformwidget(ctrl: value.classController, hinttext: 'Class'),
@@ -63,6 +68,7 @@ class AddStudent extends StatelessWidget {
                       value.classController.clear();
                       value.rollNoController.clear();
                       value.fileimage = null;
+                      FocusScope.of(context).unfocus();
                     }
                   },
                   icon: const Icon(Icons.add),
@@ -98,14 +104,8 @@ class AddStudent extends StatelessWidget {
       return;
     } else {
       Provider.of<StudentProvider>(context, listen: false).getAllStudents();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          width: 150,
-          backgroundColor: Colors.green,
-          behavior: SnackBarBehavior.floating,
-          content: Text('New Data Added'),
-        ),
-      );
+      snackBarWidget(
+          ctx: context, title: 'New Student Added', clr: Colors.green);
     }
     final student = StudentModel(
       name: name,

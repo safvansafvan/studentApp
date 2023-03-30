@@ -9,12 +9,12 @@ class ScreenAddStudets extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         child: ListView(
           shrinkWrap: true,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.9,
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: const Center(
                 child: AddStudent(),
