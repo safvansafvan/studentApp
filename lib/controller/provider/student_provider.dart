@@ -56,7 +56,7 @@ class StudentProvider with ChangeNotifier {
   //add st
   Future<void> addStudent(values) async {
     final studentsDB = await Hive.openBox<StudentModel>('students_db');
-    await studentsDB.put(values.id, values);
+    await studentsDB.add(values);
     studentList.add(values);
     getAllStudents();
     notifyListeners();

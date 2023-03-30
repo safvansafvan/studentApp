@@ -16,7 +16,7 @@ class StudentListView extends StatelessWidget {
       builder: (context, value, child) {
         if (value.foundeduser.isEmpty) {
           return Padding(
-            padding: const EdgeInsets.only(top: 350),
+            padding: const EdgeInsets.only(top: 300),
             child: Center(
                 child: Text(
               'No Students Found',

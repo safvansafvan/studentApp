@@ -50,9 +50,18 @@ class EditStudent extends StatelessWidget {
                   CircleAvatar(
                     radius: 80,
                     backgroundImage: FileImage(
-                      File(photo),
+                      File(value.fileimage?.path ?? photo),
                     ),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton.icon(
+                      onPressed: () {
+                        value.getimg();
+                      },
+                      icon: const Icon(Icons.edit),
+                      label: const Text('Image')),
                   SizedBox(
                     width: 350,
                     child: Padding(
@@ -110,11 +119,14 @@ class EditStudent extends StatelessWidget {
                               style: const ButtonStyle(),
                               onPressed: () {
                                 onEditSave(
+                                    index: index,
+                                    photo: value.fileimage!.path,
                                     ctx: context,
                                     name: value.editname,
                                     age: value.editage,
                                     eclass: value.editclass,
                                     roll: value.editrollrum);
+
                                 Navigator.of(context).pop();
                               },
                               label: const Text('Confirm edit'),
@@ -138,10 +150,12 @@ class EditStudent extends StatelessWidget {
 
   onEditSave(
       {required ctx,
+      required index,
+      required photo,
       required TextEditingController name,
       required TextEditingController age,
       required TextEditingController eclass,
-      required TextEditingController roll}) {
+      required TextEditingController roll}) async {
     final studentmodel = StudentModel(
       name: name.text,
       age: age.text,
@@ -153,5 +167,6 @@ class EditStudent extends StatelessWidget {
 
     Provider.of<StudentProvider>(ctx, listen: false)
         .editdetails(index, studentmodel);
+    photo == null;
   }
 }
