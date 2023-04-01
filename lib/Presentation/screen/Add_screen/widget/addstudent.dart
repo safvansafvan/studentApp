@@ -14,67 +14,72 @@ class AddStudent extends StatelessWidget {
   Widget build(BuildContext context) {
     final studentprovider =
         Provider.of<StudentProvider>(context, listen: false);
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   // studentprovider.fileimage = null;
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      studentprovider.fileimage = null;
+    });
     return Consumer<StudentProvider>(builder: (context, value, _) {
       return Form(
         key: value.formkey,
-        child: Column(
+        child: ListView(
           children: [
-            const AppBarWidget(
-                titles: 'Add Student Details',
-                leading: Icons.arrow_back,
-                trailing: Icons.error),
-            const SizedBox(height: 70),
-            value.fileimage == null
-                ? const CircleAvatar(
-                    radius: 80,
-                    backgroundImage: AssetImage('Assets/images/avater2.png'),
-                  )
-                : CircleAvatar(
-                    radius: 70,
-                    backgroundImage: FileImage(
-                      File(value.fileimage!.path),
+            Column(
+              children: [
+                const AppBarWidget(
+                    titles: 'Add Student Details',
+                    leading: Icons.arrow_back,
+                    trailing: Icons.error),
+                const SizedBox(height: 35),
+                value.fileimage == null
+                    ? const CircleAvatar(
+                        radius: 80,
+                        backgroundImage:
+                            AssetImage('Assets/images/avater2.png'),
+                      )
+                    : CircleAvatar(
+                        radius: 70,
+                        backgroundImage: FileImage(
+                          File(value.fileimage!.path),
+                        ),
+                      ),
+                ElevatedButton.icon(
+                    onPressed: () {
+                      studentprovider.getimg();
+                    },
+                    icon: const Icon(Icons.add),
+                    label: const Text('Add Profile')),
+                Textformwidget(ctrl: value.nameController, hinttext: 'Name'),
+                Textformwidget(ctrl: value.ageController, hinttext: 'Age'),
+                Textformwidget(ctrl: value.classController, hinttext: 'Class'),
+                Textformwidget(
+                    ctrl: value.rollNoController, hinttext: 'RollNumber'),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: SizedBox(
+                    height: 40,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        if (value.formkey.currentState!.validate()) {
+                          onAddStudents(
+                              context,
+                              value.nameController,
+                              value.ageController,
+                              value.classController,
+                              value.rollNoController);
+                          Navigator.of(context).pop();
+                          value.nameController.clear();
+                          value.ageController.clear();
+                          value.classController.clear();
+                          value.rollNoController.clear();
+                          value.fileimage = null;
+                          FocusScope.of(context).unfocus();
+                        }
+                      },
+                      icon: const Icon(Icons.add),
+                      label: const Text('Add '),
                     ),
                   ),
-            ElevatedButton.icon(
-                onPressed: () {
-                  studentprovider.getimg();
-                },
-                icon: const Icon(Icons.add),
-                label: const Text('Add Profile')),
-            Textformwidget(ctrl: value.nameController, hinttext: 'Name'),
-            Textformwidget(ctrl: value.ageController, hinttext: 'Age'),
-            Textformwidget(ctrl: value.classController, hinttext: 'Class'),
-            Textformwidget(
-                ctrl: value.rollNoController, hinttext: 'RollNumber'),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: SizedBox(
-                height: 40,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    if (value.formkey.currentState!.validate()) {
-                      onAddStudents(
-                          context,
-                          value.nameController,
-                          value.ageController,
-                          value.classController,
-                          value.rollNoController);
-                      Navigator.of(context).pop();
-                      value.nameController.clear();
-                      value.ageController.clear();
-                      value.classController.clear();
-                      value.rollNoController.clear();
-                      value.fileimage = null;
-                      FocusScope.of(context).unfocus();
-                    }
-                  },
-                  icon: const Icon(Icons.add),
-                  label: const Text('Add '),
                 ),
-              ),
+              ],
             ),
           ],
         ),

@@ -31,38 +31,38 @@ class EditStudent extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Consumer<StudentProvider>(builder: (context, value, child) {
-            value.editname = TextEditingController(text: name);
-            value.editage = TextEditingController(text: age);
-            value.editclass = TextEditingController(text: class_);
-            value.editrollrum = TextEditingController(text: rollno);
-            return Form(
-              key: value.editFormkey,
-              child: Column(
-                children: [
-                  const AppBarWidget(
-                      titles: 'Edit Details',
-                      leading: Icons.arrow_back,
-                      trailing: Icons.error),
-                  const SizedBox(
-                    height: 10,
+          child: Consumer<StudentProvider>(builder: (context, data, child) {
+            data.editname = TextEditingController(text: name);
+            data.editage = TextEditingController(text: age);
+            data.editclass = TextEditingController(text: class_);
+            data.editrollrum = TextEditingController(text: rollno);
+            return Column(
+              children: [
+                const AppBarWidget(
+                    titles: 'Edit Details',
+                    leading: Icons.arrow_back,
+                    trailing: Icons.error),
+                const SizedBox(
+                  height: 10,
+                ),
+                CircleAvatar(
+                  radius: 80,
+                  backgroundImage: FileImage(
+                    File(data.fileimage?.path ?? photo),
                   ),
-                  CircleAvatar(
-                    radius: 80,
-                    backgroundImage: FileImage(
-                      File(value.fileimage?.path ?? photo),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton.icon(
-                      onPressed: () {
-                        value.getimg();
-                      },
-                      icon: const Icon(Icons.edit),
-                      label: const Text('Image')),
-                  SizedBox(
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton.icon(
+                    onPressed: () {
+                      data.getimg();
+                    },
+                    icon: const Icon(Icons.edit),
+                    label: const Text('Image')),
+                Form(
+                  key: data.editFormkey,
+                  child: SizedBox(
                     width: 350,
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -70,33 +70,54 @@ class EditStudent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextFormField(
-                            controller: value.editname,
+                            controller: data.editname,
                             decoration: const InputDecoration(
                               hintText: 'Name',
                               border: OutlineInputBorder(),
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Required';
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           const SizedBox(
                             height: 15,
                           ),
                           TextFormField(
-                            controller: value.editage,
+                            controller: data.editage,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               hintText: 'Age',
                               border: OutlineInputBorder(),
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Required';
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           const SizedBox(
                             height: 15,
                           ),
-                          TextField(
+                          TextFormField(
                             maxLength: 3,
-                            controller: value.editclass,
+                            controller: data.editclass,
                             decoration: const InputDecoration(
                               hintText: 'class',
                               border: OutlineInputBorder(),
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Required';
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           const SizedBox(
                             height: 15,
@@ -104,11 +125,18 @@ class EditStudent extends StatelessWidget {
                           TextFormField(
                             maxLength: 3,
                             keyboardType: TextInputType.number,
-                            controller: value.editrollrum,
+                            controller: data.editrollrum,
                             decoration: const InputDecoration(
                               hintText: 'roll no',
                               border: OutlineInputBorder(),
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Required';
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           const SizedBox(
                             height: 15,
@@ -118,16 +146,18 @@ class EditStudent extends StatelessWidget {
                             child: ElevatedButton.icon(
                               style: const ButtonStyle(),
                               onPressed: () {
-                                onEditSave(
-                                    index: index,
-                                    photo: value.fileimage!.path,
-                                    ctx: context,
-                                    name: value.editname,
-                                    age: value.editage,
-                                    eclass: value.editclass,
-                                    roll: value.editrollrum);
-
-                                Navigator.of(context).pop();
+                                if (data.editFormkey.currentState!.validate()) {
+                                  onEditSave(
+                                      index: index,
+                                      photo: data.fileimage?.path ?? photo,
+                                      ctx: context,
+                                      name: data.editname,
+                                      age: data.editage,
+                                      eclass: data.editclass,
+                                      roll: data.editrollrum);
+                                  Navigator.of(context).pop();
+                                  FocusScope.of(context).unfocus();
+                                }
                               },
                               label: const Text('Confirm edit'),
                               icon: const Icon(
@@ -139,8 +169,8 @@ class EditStudent extends StatelessWidget {
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           }),
         ),
@@ -159,14 +189,13 @@ class EditStudent extends StatelessWidget {
     final studentmodel = StudentModel(
       name: name.text,
       age: age.text,
-      rollnumber: eclass.text,
-      class_: class_,
+      rollnumber: roll.text,
+      class_: eclass.text,
       photo: photo,
     );
     snackBarWidget(ctx: ctx, title: 'Edit Success', clr: Colors.green);
 
     Provider.of<StudentProvider>(ctx, listen: false)
         .editdetails(index, studentmodel);
-    photo == null;
   }
 }

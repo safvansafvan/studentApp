@@ -22,16 +22,16 @@ class MainScreen extends StatelessWidget {
                 titles: 'Students List',
                 leading: Icons.home_filled,
                 trailing: Icons.error),
-            Consumer<StudentProvider>(builder: (context, values, _) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: CupertinoSearchTextField(
-                    onChanged: (value) => values.searchResu(value),
-                    padding: const EdgeInsets.all(12),
-                    style: textStyleFuc(
-                        size: 15, clr: Colors.grey, bld: FontWeight.w500)),
-              );
-            }),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: CupertinoSearchTextField(
+                  onChanged: (value) =>
+                      Provider.of<StudentProvider>(context, listen: false)
+                          .searchResu(value),
+                  padding: const EdgeInsets.all(12),
+                  style: textStyleFuc(
+                      size: 15, clr: Colors.grey, bld: FontWeight.w500)),
+            ),
             const StudentListView()
           ],
         ),

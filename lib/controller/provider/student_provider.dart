@@ -15,7 +15,6 @@ class StudentProvider with ChangeNotifier {
   final formkey = GlobalKey<FormState>();
 
   //edit
-
   TextEditingController editname = TextEditingController();
   TextEditingController editage = TextEditingController();
   TextEditingController editclass = TextEditingController();
@@ -29,7 +28,7 @@ class StudentProvider with ChangeNotifier {
 
   File? fileimage;
   Future<void> getimg() async {
-    final photo = await ImagePicker().pickImage(source: ImageSource.camera);
+    final photo = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (photo == null) {
       return;
@@ -79,7 +78,6 @@ class StudentProvider with ChangeNotifier {
   }
 
   //search
-
   Future<void> searchResu(String text) async {
     List<StudentModel> result = [];
     if (text.isEmpty) {

@@ -1,17 +1,14 @@
 // ignore_for_file: file_names
 
 import 'dart:io';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Presentation/screen/student_information/widget/textwidget.dart';
 import 'package:flutter_application_1/Presentation/widgets/appbar.dart';
 
 class FullDetails extends StatelessWidget {
   final String name;
   final String class_;
-
   final String age;
-
   final String rollno;
   final String photo;
 
@@ -47,37 +44,13 @@ class FullDetails extends StatelessWidget {
               padding: const EdgeInsets.only(top: 50),
               child: Column(
                 children: [
-                  Text(
-                    'NAME :  $name'.toUpperCase(),
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'CLASS :  $class_',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'AGE : $age',
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'ROLL NO : $rollno',
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  )
+                  TextWidget(titlevalue: name, title: 'Name'),
+                  const SizedBox(height: 20),
+                  TextWidget(titlevalue: age, title: 'Age'),
+                  const SizedBox(height: 20),
+                  TextWidget(titlevalue: class_, title: 'Class'),
+                  const SizedBox(height: 20),
+                  TextWidget(titlevalue: rollno, title: 'Roll Number'),
                 ],
               ),
             ),
