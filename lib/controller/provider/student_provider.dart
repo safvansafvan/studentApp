@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,7 +42,6 @@ class StudentProvider with ChangeNotifier {
 
   //getst
   Future<List<StudentModel>> getAllStudents() async {
-    log('called get fuc');
     final studentsDB = await Hive.openBox<StudentModel>('students_db');
     studentList.clear();
     studentList.addAll(studentsDB.values);

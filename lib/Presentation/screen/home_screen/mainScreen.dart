@@ -16,23 +16,27 @@ class MainScreen extends StatelessWidget {
     Provider.of<StudentProvider>(context, listen: false).getAllStudents();
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
-            const AppBarWidget(
-                titles: 'Students List',
-                leading: Icons.home_filled,
-                trailing: Icons.error),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: CupertinoSearchTextField(
-                  onChanged: (value) =>
-                      Provider.of<StudentProvider>(context, listen: false)
-                          .searchResu(value),
-                  padding: const EdgeInsets.all(12),
-                  style: textStyleFuc(
-                      size: 15, clr: Colors.grey, bld: FontWeight.w500)),
+            Column(
+              children: [
+                const AppBarWidget(
+                    titles: 'Students List',
+                    leading: Icons.home_filled,
+                    trailing: Icons.error),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: CupertinoSearchTextField(
+                      onChanged: (value) =>
+                          Provider.of<StudentProvider>(context, listen: false)
+                              .searchResu(value),
+                      padding: const EdgeInsets.all(12),
+                      style: textStyleFuc(
+                          size: 15, clr: Colors.grey, bld: FontWeight.w500)),
+                ),
+                const StudentListView()
+              ],
             ),
-            const StudentListView()
           ],
         ),
       ),

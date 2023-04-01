@@ -108,7 +108,6 @@ class AddStudent extends StatelessWidget {
             .isEmpty) {
       return;
     } else {
-      Provider.of<StudentProvider>(context, listen: false).getAllStudents();
       snackBarWidget(
           ctx: context, title: 'New Student Added', clr: Colors.green);
     }
