@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../Presentation/DB/model/model_dart.dart';
 
-class StudentProvider with ChangeNotifier {
+class StudentProvider extends ChangeNotifier {
   //add
   final nameController = TextEditingController();
   final ageController = TextEditingController();
@@ -41,13 +41,12 @@ class StudentProvider with ChangeNotifier {
   List<StudentModel> foundeduser = [];
 
   //getst
-  Future<List<StudentModel>> getAllStudents() async {
+  Future<void> getAllStudents() async {
     final studentsDB = await Hive.openBox<StudentModel>('students_db');
     studentList.clear();
     studentList.addAll(studentsDB.values);
     foundeduser = studentList;
     notifyListeners();
-    return studentList;
   }
 
   //add st

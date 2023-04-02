@@ -14,9 +14,7 @@ class AddStudent extends StatelessWidget {
   Widget build(BuildContext context) {
     final studentprovider =
         Provider.of<StudentProvider>(context, listen: false);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      studentprovider.fileimage = null;
-    });
+
     return Consumer<StudentProvider>(builder: (context, value, _) {
       return Form(
         key: value.formkey,
@@ -118,7 +116,6 @@ class AddStudent extends StatelessWidget {
       rollnumber: rollNo,
       photo:
           Provider.of<StudentProvider>(context, listen: false).fileimage!.path,
-      id: DateTime.now().microsecondsSinceEpoch.toString(),
     );
 
     Provider.of<StudentProvider>(context, listen: false).addStudent(student);

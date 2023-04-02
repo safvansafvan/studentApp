@@ -144,7 +144,6 @@ class EditStudent extends StatelessWidget {
                           SizedBox(
                             height: 40,
                             child: ElevatedButton.icon(
-                              style: const ButtonStyle(),
                               onPressed: () {
                                 if (data.editFormkey.currentState!.validate()) {
                                   onEditSave(
