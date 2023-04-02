@@ -5,6 +5,7 @@ import 'package:flutter_application_1/Presentation/screen/student_information/fu
 import 'package:flutter_application_1/Presentation/widgets/snack_bar.dart';
 import 'package:flutter_application_1/controller/core/colors.dart';
 import 'package:flutter_application_1/controller/provider/student_provider.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 class StudentListView extends StatelessWidget {
@@ -29,60 +30,95 @@ class StudentListView extends StatelessWidget {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 final data = value.foundeduser[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FullDetails(
-                            name: data.name,
-                            age: data.age,
-                            class_: data.class_,
-                            rollno: data.rollnumber,
-                            photo: data.photo,
-                          ),
-                        ),
-                      );
-                    },
-                    title: Text(data.name.toUpperCase(),
-                        style: const TextStyle(fontSize: 15)),
-                    leading: CircleAvatar(
-                      backgroundImage: FileImage(File(data.photo)),
-                      radius: 30,
-                    ),
-                    trailing: Wrap(
-                      spacing: 14,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return EditStudent(
-                                    name: data.name,
-                                    class_: data.class_,
-                                    age: data.age,
-                                    rollno: data.rollnumber,
-                                    index: index,
-                                    photo: data.photo,
-                                  );
-                                },
-                              ),
+                return Slidable(
+                  endActionPane:
+                      ActionPane(motion: const BehindMotion(), children: [
+                    SlidableAction(
+                      onPressed: (context) {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return EditStudent(
+                              name: data.name,
+                              class_: data.class_,
+                              age: data.age,
+                              rollno: data.rollnumber,
+                              index: index,
+                              photo: data.photo,
                             );
                           },
-                          icon: const Icon(Icons.edit),
-                          color: Colors.blue,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            deleteButtonTap(context, value, index);
-                          },
-                          icon: const Icon(Icons.delete),
-                          color: Colors.red,
-                        )
-                      ],
+                        ));
+                      },
+                      icon: Icons.edit,
+                      foregroundColor: Colors.blue,
+                    ),
+                    SlidableAction(
+                      onPressed: (context) {
+                        deleteButtonTap(context, value, index);
+                      },
+                      icon: Icons.delete,
+                      foregroundColor: Colors.red,
+                    ),
+                  ]),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FullDetails(
+                              name: data.name,
+                              age: data.age,
+                              class_: data.class_,
+                              rollno: data.rollnumber,
+                              photo: data.photo,
+                            ),
+                          ),
+                        );
+                      },
+                      title: Text(data.name.toUpperCase(),
+                          style: const TextStyle(fontSize: 15)),
+                      leading: CircleAvatar(
+                        backgroundImage: FileImage(File(data.photo)),
+                        radius: 30,
+                      ),
+                      trailing: IconButton(
+                          tooltip: 'Drag left',
+                          onPressed: () {},
+                          icon: const Icon(Icons.arrow_forward_ios)),
+
+                      //  Wrap(
+                      //   spacing: 14,
+                      //   children: [
+                      //     IconButton(
+                      //       onPressed: () {
+                      //         Navigator.of(context).push(
+                      //           MaterialPageRoute(
+                      //             builder: (context) {
+                      //               return EditStudent(
+                      //                 name: data.name,
+                      //                 class_: data.class_,
+                      //                 age: data.age,
+                      //                 rollno: data.rollnumber,
+                      //                 index: index,
+                      //                 photo: data.photo,
+                      //               );
+                      //             },
+                      //           ),
+                      //         );
+                      //       },
+                      //       icon: const Icon(Icons.edit),
+                      //       color: Colors.blue,
+                      //     ),
+                      //     IconButton(
+                      //       onPressed: () {
+                      //         deleteButtonTap(context, value, index);
+                      //       },
+                      //       icon: const Icon(Icons.delete),
+                      //       color: Colors.red,
+                      //     )
+                      //   ],
+                      // ),
                     ),
                   ),
                 );
