@@ -86,39 +86,6 @@ class StudentListView extends StatelessWidget {
                           tooltip: 'Drag left',
                           onPressed: () {},
                           icon: const Icon(Icons.arrow_forward_ios)),
-
-                      //  Wrap(
-                      //   spacing: 14,
-                      //   children: [
-                      //     IconButton(
-                      //       onPressed: () {
-                      //         Navigator.of(context).push(
-                      //           MaterialPageRoute(
-                      //             builder: (context) {
-                      //               return EditStudent(
-                      //                 name: data.name,
-                      //                 class_: data.class_,
-                      //                 age: data.age,
-                      //                 rollno: data.rollnumber,
-                      //                 index: index,
-                      //                 photo: data.photo,
-                      //               );
-                      //             },
-                      //           ),
-                      //         );
-                      //       },
-                      //       icon: const Icon(Icons.edit),
-                      //       color: Colors.blue,
-                      //     ),
-                      //     IconButton(
-                      //       onPressed: () {
-                      //         deleteButtonTap(context, value, index);
-                      //       },
-                      //       icon: const Icon(Icons.delete),
-                      //       color: Colors.red,
-                      //     )
-                      //   ],
-                      // ),
                     ),
                   ),
                 );
