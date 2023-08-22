@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Presentation/DB/model/model_dart.dart';
-import 'package:flutter_application_1/Presentation/screen/Add_screen/widget/textformfield.dart';
+import 'package:flutter_application_1/Presentation/widgets/textformfield.dart';
 import 'package:flutter_application_1/Presentation/widgets/appbar.dart';
 import 'package:flutter_application_1/Presentation/widgets/snack_bar.dart';
 import 'package:flutter_application_1/controller/provider/student_provider.dart';
@@ -45,11 +45,20 @@ class AddStudent extends StatelessWidget {
                     },
                     icon: const Icon(Icons.add),
                     label: const Text('Add Profile')),
-                Textformwidget(ctrl: value.nameController, hinttext: 'Name'),
-                Textformwidget(ctrl: value.ageController, hinttext: 'Age'),
-                Textformwidget(ctrl: value.classController, hinttext: 'Class'),
                 Textformwidget(
-                    ctrl: value.rollNoController, hinttext: 'RollNumber'),
+                    ctrl: value.nameController,
+                    hinttext: 'Name',
+                    isNumber: false),
+                Textformwidget(
+                    ctrl: value.ageController, hinttext: 'Age', isNumber: true),
+                Textformwidget(
+                    ctrl: value.classController,
+                    hinttext: 'Class',
+                    isNumber: false),
+                Textformwidget(
+                    ctrl: value.rollNoController,
+                    hinttext: 'RollNumber',
+                    isNumber: true),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: SizedBox(

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Presentation/DB/model/model_dart.dart';
+import 'package:flutter_application_1/Presentation/widgets/textformfield.dart';
 import 'package:flutter_application_1/Presentation/widgets/appbar.dart';
 import 'package:flutter_application_1/Presentation/widgets/snack_bar.dart';
 import 'package:flutter_application_1/controller/provider/student_provider.dart';
@@ -63,109 +64,49 @@ class EditStudent extends StatelessWidget {
                 Form(
                   key: data.editFormkey,
                   child: SizedBox(
-                    width: 350,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextFormField(
-                            controller: data.editname,
-                            decoration: const InputDecoration(
-                              hintText: 'Name',
-                              border: OutlineInputBorder(),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Required';
-                              } else {
-                                return null;
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Textformwidget(
+                            ctrl: data.editname,
+                            hinttext: "Name",
+                            isNumber: false),
+                        Textformwidget(
+                            ctrl: data.editage,
+                            hinttext: "Age",
+                            isNumber: true),
+                        Textformwidget(
+                            ctrl: data.editclass,
+                            hinttext: "Class",
+                            isNumber: false),
+                        Textformwidget(
+                            ctrl: data.editrollrum,
+                            hinttext: "Roll No",
+                            isNumber: true),
+                        SizedBox(
+                          height: 40,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              if (data.editFormkey.currentState!.validate()) {
+                                onEditSave(
+                                    index: index,
+                                    photo: data.fileimage?.path ?? photo,
+                                    ctx: context,
+                                    name: data.editname,
+                                    age: data.editage,
+                                    eclass: data.editclass,
+                                    roll: data.editrollrum);
+                                Navigator.of(context).pop();
+                                FocusScope.of(context).unfocus();
                               }
                             },
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: data.editage,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                              hintText: 'Age',
-                              border: OutlineInputBorder(),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Required';
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            maxLength: 3,
-                            controller: data.editclass,
-                            decoration: const InputDecoration(
-                              hintText: 'class',
-                              border: OutlineInputBorder(),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Required';
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            maxLength: 3,
-                            keyboardType: TextInputType.number,
-                            controller: data.editrollrum,
-                            decoration: const InputDecoration(
-                              hintText: 'roll no',
-                              border: OutlineInputBorder(),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Required';
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          SizedBox(
-                            height: 40,
-                            child: ElevatedButton.icon(
-                              onPressed: () {
-                                if (data.editFormkey.currentState!.validate()) {
-                                  onEditSave(
-                                      index: index,
-                                      photo: data.fileimage?.path ?? photo,
-                                      ctx: context,
-                                      name: data.editname,
-                                      age: data.editage,
-                                      eclass: data.editclass,
-                                      roll: data.editrollrum);
-                                  Navigator.of(context).pop();
-                                  FocusScope.of(context).unfocus();
-                                }
-                              },
-                              label: const Text('Confirm edit'),
-                              icon: const Icon(
-                                Icons.check,
-                              ),
+                            label: const Text('Confirm edit'),
+                            icon: const Icon(
+                              Icons.check,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -177,7 +118,7 @@ class EditStudent extends StatelessWidget {
     );
   }
 
-  onEditSave(
+  Future<void> onEditSave(
       {required ctx,
       required index,
       required photo,
