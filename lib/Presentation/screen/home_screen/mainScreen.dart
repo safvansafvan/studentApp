@@ -15,28 +15,28 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.of<StudentProvider>(context, listen: false).getAllStudents();
     return Scaffold(
+      appBar: const PreferredSize(
+          preferredSize: Size(double.infinity, 50),
+          child: SafeArea(
+            child: AppBarWidget(
+                titles: 'Students List',
+                leading: Icons.home_filled,
+                trailing: Icons.error),
+          )),
       body: SafeArea(
-        child: ListView(
+        child: Column(
           children: [
-            Column(
-              children: [
-                const AppBarWidget(
-                    titles: 'Students List',
-                    leading: Icons.home_filled,
-                    trailing: Icons.error),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: CupertinoSearchTextField(
-                      onChanged: (value) =>
-                          Provider.of<StudentProvider>(context, listen: false)
-                              .searchResu(value),
-                      padding: const EdgeInsets.all(12),
-                      style: textStyleFuc(
-                          size: 15, clr: Colors.grey, bld: FontWeight.w500)),
-                ),
-                const StudentListView()
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: CupertinoSearchTextField(
+                  onChanged: (value) =>
+                      Provider.of<StudentProvider>(context, listen: false)
+                          .searchResu(value),
+                  padding: const EdgeInsets.all(12),
+                  style: textStyleFuc(
+                      size: 15, clr: Colors.grey, bld: FontWeight.w500)),
             ),
+            const Expanded(child: StudentListView())
           ],
         ),
       ),

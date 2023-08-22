@@ -13,11 +13,12 @@ class StudentListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Consumer<StudentProvider>(
       builder: (context, value, child) {
         if (value.foundeduser.isEmpty) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 300),
+          return SizedBox(
+            height: size.height * 0.8,
             child: Center(
                 child: Text(
               'No Students Found',
